@@ -33,3 +33,5 @@ auth.json
 .idea/
 
 CLAUDE.md
+
+.claude/
