@@ -84,6 +84,16 @@ final class Character extends Model
     }
 
     /**
+     * Alias for characterClass() for simpler access.
+     *
+     * @return BelongsTo<CharacterClass, Character>
+     */
+    public function class(): BelongsTo
+    {
+        return $this->characterClass();
+    }
+
+    /**
      * Get the species of this character.
      *
      * @return BelongsTo<Species, Character>

@@ -331,6 +331,12 @@ parameters:
 			path: database/factories/CharacterFactory.php
 
 		-
+			message: '#^Return type \(array\<string, mixed\>\) of method Database\\Factories\\ClassFeatureFactory\:\:definition\(\) should be compatible with return type \(array\<model property of App\\Models\\ClassFeature, mixed\>\) of method Illuminate\\Database\\Eloquent\\Factories\\Factory\<App\\Models\\ClassFeature\>\:\:definition\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: database/factories/ClassFeatureFactory.php
+
+		-
 			message: '#^Cannot access property \$value on mixed\.$#'
 			identifier: property.nonObject
 			count: 1
@@ -377,6 +383,12 @@ parameters:
 			identifier: method.childReturnType
 			count: 1
 			path: database/factories/SpellFactory.php
+
+		-
+			message: '#^Return type \(array\<string, mixed\>\) of method Database\\Factories\\SubclassFactory\:\:definition\(\) should be compatible with return type \(array\<model property of App\\Models\\Subclass, mixed\>\) of method Illuminate\\Database\\Eloquent\\Factories\\Factory\<App\\Models\\Subclass\>\:\:definition\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: database/factories/SubclassFactory.php
 
 		-
 			message: '#^Return type \(array\<string, mixed\>\) of method Database\\Factories\\UserFactory\:\:definition\(\) should be compatible with return type \(array\<model property of App\\Models\\User, mixed\>\) of method Illuminate\\Database\\Eloquent\\Factories\\Factory\<App\\Models\\User\>\:\:definition\(\)$#'
