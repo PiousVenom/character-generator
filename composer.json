@@ -15,6 +15,8 @@
     },
     "require-dev": {
         "fakerphp/faker": "^v1.24.1",
+        "friendsofphp/php-cs-fixer": "^3.90",
+        "larastan/larastan": "^3.8",
         "laravel/pail": "^v1.2.3",
         "laravel/pint": "^v1.25.1",
         "laravel/sail": "^v1.48.1",
@@ -50,6 +52,23 @@
         "test": [
             "@php artisan config:clear --ansi",
             "@php artisan test"
+        ],
+        "analyse": [
+            "@php vendor/bin/phpstan analyse --memory-limit=2G"
+        ],
+        "analyse:baseline": [
+            "@php vendor/bin/phpstan analyse --generate-baseline --memory-limit=2G"
+        ],
+        "format": [
+            "@php vendor/bin/php-cs-fixer fix"
+        ],
+        "format:check": [
+            "@php vendor/bin/php-cs-fixer fix --dry-run --diff"
+        ],
+        "quality": [
+            "@format:check",
+            "@analyse",
+            "@test"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",

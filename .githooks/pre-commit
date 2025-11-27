@@ -1,0 +1,41 @@
+#!/bin/bash
+
+set -e
+
+echo "🔍 Running code quality checks..."
+
+# PHP CS Fixer
+echo "📝 Checking code style with PHP CS Fixer..."
+./vendor/bin/php-cs-fixer fix --dry-run --diff
+
+if [ $? -ne 0 ]; then
+    echo "❌ PHP CS Fixer found violations."
+    echo "💡 Run './vendor/bin/php-cs-fixer fix' to auto-fix."
+    exit 1
+fi
+echo "✅ PHP CS Fixer passed!"
+
+# Larastan
+echo "🔬 Running static analysis with Larastan..."
+./vendor/bin/phpstan analyse --memory-limit=2G
+
+if [ $? -ne 0 ]; then
+    echo "❌ Larastan found errors."
+    exit 1
+fi
+echo "✅ Larastan passed!"
+
+# Tests (optional - can be slow)
+if [ "$RUN_TESTS" = "1" ]; then
+    echo "🧪 Running tests..."
+    php artisan test --parallel
+
+    if [ $? -ne 0 ]; then
+        echo "❌ Tests failed."
+        exit 1
+    fi
+    echo "✅ Tests passed!"
+fi
+
+echo "🎉 All checks passed!"
+exit 0

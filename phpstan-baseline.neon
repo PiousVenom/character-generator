@@ -1,0 +1,385 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Class App\\Models\\AbilityScore uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/AbilityScore.php
+
+		-
+			message: '#^Method App\\Models\\AbilityScore\:\:character\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Character, App\\Models\\AbilityScore\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Character, \$this\(App\\Models\\AbilityScore\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/AbilityScore.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\AbilityScore\:\:\$appends is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$appends\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/AbilityScore.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\AbilityScore\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/AbilityScore.php
+
+		-
+			message: '#^Class App\\Models\\Background uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Background.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Background\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Background.php
+
+		-
+			message: '#^Class App\\Models\\Character uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Character.php
+
+		-
+			message: '#^Method App\\Models\\Character\:\:abilityScores\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasOne\<App\\Models\\AbilityScore, App\\Models\\Character\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasOne\<App\\Models\\AbilityScore, \$this\(App\\Models\\Character\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Character.php
+
+		-
+			message: '#^Method App\\Models\\Character\:\:background\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Background, App\\Models\\Character\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Background, \$this\(App\\Models\\Character\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Character.php
+
+		-
+			message: '#^Method App\\Models\\Character\:\:characterClass\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\CharacterClass, App\\Models\\Character\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\CharacterClass, \$this\(App\\Models\\Character\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Character.php
+
+		-
+			message: '#^Method App\\Models\\Character\:\:characterLevels\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\CharacterLevel, App\\Models\\Character\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\CharacterLevel, \$this\(App\\Models\\Character\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Character.php
+
+		-
+			message: '#^Method App\\Models\\Character\:\:equipment\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\Equipment, App\\Models\\Character, Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''pivot''\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\Equipment, \$this\(App\\Models\\Character\), Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''pivot''\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Character.php
+
+		-
+			message: '#^Method App\\Models\\Character\:\:feats\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\Feat, App\\Models\\Character, Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''pivot''\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\Feat, \$this\(App\\Models\\Character\), Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''pivot''\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Character.php
+
+		-
+			message: '#^Method App\\Models\\Character\:\:skills\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\Skill, App\\Models\\Character, Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''pivot''\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\Skill, \$this\(App\\Models\\Character\), Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''pivot''\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Character.php
+
+		-
+			message: '#^Method App\\Models\\Character\:\:species\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Species, App\\Models\\Character\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Species, \$this\(App\\Models\\Character\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Character.php
+
+		-
+			message: '#^Method App\\Models\\Character\:\:spells\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\Spell, App\\Models\\Character, Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''pivot''\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\Spell, \$this\(App\\Models\\Character\), Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''pivot''\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Character.php
+
+		-
+			message: '#^Method App\\Models\\Character\:\:subclass\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Subclass, App\\Models\\Character\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Subclass, \$this\(App\\Models\\Character\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Character.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Character\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Character.php
+
+		-
+			message: '#^Class App\\Models\\CharacterClass uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/CharacterClass.php
+
+		-
+			message: '#^Method App\\Models\\CharacterClass\:\:features\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\ClassFeature, App\\Models\\CharacterClass\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\ClassFeature, \$this\(App\\Models\\CharacterClass\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/CharacterClass.php
+
+		-
+			message: '#^Method App\\Models\\CharacterClass\:\:spells\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\Spell, App\\Models\\CharacterClass, Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''pivot''\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\Spell, \$this\(App\\Models\\CharacterClass\), Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''pivot''\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/CharacterClass.php
+
+		-
+			message: '#^Method App\\Models\\CharacterClass\:\:subclasses\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Subclass, App\\Models\\CharacterClass\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\Subclass, \$this\(App\\Models\\CharacterClass\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/CharacterClass.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\CharacterClass\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/CharacterClass.php
+
+		-
+			message: '#^Class App\\Models\\CharacterLevel uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/CharacterLevel.php
+
+		-
+			message: '#^Method App\\Models\\CharacterLevel\:\:character\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Character, App\\Models\\CharacterLevel\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Character, \$this\(App\\Models\\CharacterLevel\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/CharacterLevel.php
+
+		-
+			message: '#^Method App\\Models\\CharacterLevel\:\:characterClass\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\CharacterClass, App\\Models\\CharacterLevel\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\CharacterClass, \$this\(App\\Models\\CharacterLevel\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/CharacterLevel.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\CharacterLevel\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/CharacterLevel.php
+
+		-
+			message: '#^Class App\\Models\\ClassFeature uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/ClassFeature.php
+
+		-
+			message: '#^Method App\\Models\\ClassFeature\:\:characterClass\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\CharacterClass, App\\Models\\ClassFeature\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\CharacterClass, \$this\(App\\Models\\ClassFeature\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/ClassFeature.php
+
+		-
+			message: '#^Method App\\Models\\ClassFeature\:\:subclass\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Subclass, App\\Models\\ClassFeature\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\Subclass, \$this\(App\\Models\\ClassFeature\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/ClassFeature.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\ClassFeature\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/ClassFeature.php
+
+		-
+			message: '#^Class App\\Models\\Equipment uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Equipment.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Equipment\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Equipment.php
+
+		-
+			message: '#^Class App\\Models\\ErrorLog uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/ErrorLog.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\ErrorLog\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/ErrorLog.php
+
+		-
+			message: '#^Class App\\Models\\Feat uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Feat.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Feat\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Feat.php
+
+		-
+			message: '#^Class App\\Models\\RequestLog uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/RequestLog.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\RequestLog\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/RequestLog.php
+
+		-
+			message: '#^Class App\\Models\\Skill uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Skill.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Skill\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Skill.php
+
+		-
+			message: '#^Class App\\Models\\Species uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Species.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Species\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Species.php
+
+		-
+			message: '#^Class App\\Models\\Spell uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Spell.php
+
+		-
+			message: '#^Method App\\Models\\Spell\:\:classes\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\CharacterClass, App\\Models\\Spell, Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''pivot''\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsToMany\<App\\Models\\CharacterClass, \$this\(App\\Models\\Spell\), Illuminate\\Database\\Eloquent\\Relations\\Pivot, ''pivot''\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Spell.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Spell\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Spell.php
+
+		-
+			message: '#^Class App\\Models\\Subclass uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Subclass.php
+
+		-
+			message: '#^Method App\\Models\\Subclass\:\:characterClass\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\CharacterClass, App\\Models\\Subclass\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<App\\Models\\CharacterClass, \$this\(App\\Models\\Subclass\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Subclass.php
+
+		-
+			message: '#^Method App\\Models\\Subclass\:\:features\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\ClassFeature, App\\Models\\Subclass\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasMany\<App\\Models\\ClassFeature, \$this\(App\\Models\\Subclass\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Models/Subclass.php
+
+		-
+			message: '#^PHPDoc type array\<int, string\> of property App\\Models\\Subclass\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Models/Subclass.php
+
+		-
+			message: '#^Return type \(array\<string, mixed\>\) of method Database\\Factories\\AbilityScoreFactory\:\:definition\(\) should be compatible with return type \(array\<model property of App\\Models\\AbilityScore, mixed\>\) of method Illuminate\\Database\\Eloquent\\Factories\\Factory\<App\\Models\\AbilityScore\>\:\:definition\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: database/factories/AbilityScoreFactory.php
+
+		-
+			message: '#^Return type \(array\<string, mixed\>\) of method Database\\Factories\\BackgroundFactory\:\:definition\(\) should be compatible with return type \(array\<model property of App\\Models\\Background, mixed\>\) of method Illuminate\\Database\\Eloquent\\Factories\\Factory\<App\\Models\\Background\>\:\:definition\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: database/factories/BackgroundFactory.php
+
+		-
+			message: '#^Return type \(array\<string, mixed\>\) of method Database\\Factories\\CharacterClassFactory\:\:definition\(\) should be compatible with return type \(array\<model property of App\\Models\\CharacterClass, mixed\>\) of method Illuminate\\Database\\Eloquent\\Factories\\Factory\<App\\Models\\CharacterClass\>\:\:definition\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: database/factories/CharacterClassFactory.php
+
+		-
+			message: '#^Cannot access property \$value on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: database/factories/CharacterFactory.php
+
+		-
+			message: '#^Return type \(array\<string, mixed\>\) of method Database\\Factories\\CharacterFactory\:\:definition\(\) should be compatible with return type \(array\<model property of App\\Models\\Character, mixed\>\) of method Illuminate\\Database\\Eloquent\\Factories\\Factory\<App\\Models\\Character\>\:\:definition\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: database/factories/CharacterFactory.php
+
+		-
+			message: '#^Cannot access property \$value on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: database/factories/EquipmentFactory.php
+
+		-
+			message: '#^Return type \(array\<string, mixed\>\) of method Database\\Factories\\EquipmentFactory\:\:definition\(\) should be compatible with return type \(array\<model property of App\\Models\\Equipment, mixed\>\) of method Illuminate\\Database\\Eloquent\\Factories\\Factory\<App\\Models\\Equipment\>\:\:definition\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: database/factories/EquipmentFactory.php
+
+		-
+			message: '#^Return type \(array\<string, mixed\>\) of method Database\\Factories\\FeatFactory\:\:definition\(\) should be compatible with return type \(array\<model property of App\\Models\\Feat, mixed\>\) of method Illuminate\\Database\\Eloquent\\Factories\\Factory\<App\\Models\\Feat\>\:\:definition\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: database/factories/FeatFactory.php
+
+		-
+			message: '#^Return type \(array\<string, mixed\>\) of method Database\\Factories\\SkillFactory\:\:definition\(\) should be compatible with return type \(array\<model property of App\\Models\\Skill, mixed\>\) of method Illuminate\\Database\\Eloquent\\Factories\\Factory\<App\\Models\\Skill\>\:\:definition\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: database/factories/SkillFactory.php
+
+		-
+			message: '#^Possibly invalid array key type mixed\.$#'
+			identifier: array.invalidKey
+			count: 1
+			path: database/factories/SpeciesFactory.php
+
+		-
+			message: '#^Return type \(array\<string, mixed\>\) of method Database\\Factories\\SpeciesFactory\:\:definition\(\) should be compatible with return type \(array\<model property of App\\Models\\Species, mixed\>\) of method Illuminate\\Database\\Eloquent\\Factories\\Factory\<App\\Models\\Species\>\:\:definition\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: database/factories/SpeciesFactory.php
+
+		-
+			message: '#^Cannot access property \$value on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: database/factories/SpellFactory.php
+
+		-
+			message: '#^Return type \(array\<string, mixed\>\) of method Database\\Factories\\SpellFactory\:\:definition\(\) should be compatible with return type \(array\<model property of App\\Models\\Spell, mixed\>\) of method Illuminate\\Database\\Eloquent\\Factories\\Factory\<App\\Models\\Spell\>\:\:definition\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: database/factories/SpellFactory.php
+
+		-
+			message: '#^Return type \(array\<string, mixed\>\) of method Database\\Factories\\UserFactory\:\:definition\(\) should be compatible with return type \(array\<model property of App\\Models\\User, mixed\>\) of method Illuminate\\Database\\Eloquent\\Factories\\Factory\<App\\Models\\User\>\:\:definition\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: database/factories/UserFactory.php
