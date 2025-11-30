@@ -46,6 +46,13 @@ parameters:
     ignoreErrors:
         - '#^Property App\\Models\\[A-Za-z0-9_]+::\$[A-Za-z0-9_]+ not found\\.#'
         - '#^Call to an undefined method Illuminate\\[A-Za-z0-9_\\\\]+::[A-Za-z0-9_]+\(\)#'
+        # PHPUnit assertion method patterns (standard test patterns flagged by strict rules)
+        -
+            identifier: staticMethod.dynamicCall
+            path: tests/*
+        -
+            identifier: method.alreadyNarrowedType
+            path: tests/*
 
     # Don't fail if the ignore patterns match nothing (keeps CI green as code improves)
     reportUnmatchedIgnoredErrors: false
