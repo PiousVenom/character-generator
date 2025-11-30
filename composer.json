@@ -10,16 +10,20 @@
     "license": "MIT",
     "require": {
         "php": "^8.4",
-        "laravel/framework": "^v12.39.0",
-        "laravel/tinker": "^v2.10.1"
+        "laravel/framework": "^v12.40.2",
+        "laravel/tinker": "^v2.10.2"
     },
     "require-dev": {
         "fakerphp/faker": "^v1.24.1",
-        "laravel/pail": "^v1.2.3",
-        "laravel/pint": "^v1.25.1",
+        "friendsofphp/php-cs-fixer": "^v3.91.0",
+        "larastan/larastan": "^v3.8.0",
+        "laravel/pail": "^v1.2.4",
+        "laravel/pint": "^v1.26.0",
         "laravel/sail": "^v1.48.1",
         "mockery/mockery": "^1.6.12",
         "nunomaduro/collision": "^v8.8.3",
+        "phpstan/phpstan-deprecation-rules": "^2.0.3",
+        "phpstan/phpstan-strict-rules": "^2.0.7",
         "phpunit/phpunit": "^12.4.4"
     },
     "autoload": {
@@ -68,7 +72,12 @@
         ],
         "pre-package-uninstall": [
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
-        ]
+        ],
+        "analyse": "./vendor/bin/phpstan analyse --memory-limit=2G",
+        "format": "./vendor/bin/php-cs-fixer fix",
+        "format:check": "./vendor/bin/php-cs-fixer fix --dry-run --diff",
+        "test": "php artisan test",
+        "quality": ["@format:check", "@analyse", "@test"]
     },
     "extra": {
         "laravel": {
