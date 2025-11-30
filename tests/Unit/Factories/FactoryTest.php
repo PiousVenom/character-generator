@@ -20,27 +20,21 @@ use Tests\TestCase;
 
 /**
  * Factory tests for model factories.
- *
- * BUG NOTICE: Multiple factory state methods use `static fn` instead of `fn`.
- * This causes "Cannot bind an instance to a static closure" error when states
- * are applied. Tests for affected states are skipped with documentation.
- *
- * Affected factories (requiring DEV fix):
- * - CharacterFactory: level(), inspired(), damaged(), fullHealth(), withSubclass()
- * - CharacterClassFactory: fighter(), wizard()
- * - SpeciesFactory: human(), elf(), dwarf()
- * - BackgroundFactory: soldier(), sage(), criminal()
- * - AbilityScoreFactory: allTens(), fighter(), wizard(), rogue(), cleric(), standardArray()
  */
 final class FactoryTest extends TestCase
 {
     use RefreshDatabase;
 
-    private const STATIC_CLOSURE_BUG_MESSAGE = 'BUG: Factory state uses `static fn` instead of `fn`. See DEV-XX-BUG-factory-static-closures';
-
     public function testAbilityScoreFactoryAllTensState(): void
     {
-        $this->markTestSkipped(self::STATIC_CLOSURE_BUG_MESSAGE);
+        $abilityScore = AbilityScore::factory()->allTens()->create();
+
+        $this->assertSame(10, $abilityScore->strength);
+        $this->assertSame(10, $abilityScore->dexterity);
+        $this->assertSame(10, $abilityScore->constitution);
+        $this->assertSame(10, $abilityScore->intelligence);
+        $this->assertSame(10, $abilityScore->wisdom);
+        $this->assertSame(10, $abilityScore->charisma);
     }
 
     // =====================================
@@ -58,7 +52,14 @@ final class FactoryTest extends TestCase
 
     public function testAbilityScoreFactoryClericState(): void
     {
-        $this->markTestSkipped(self::STATIC_CLOSURE_BUG_MESSAGE);
+        $abilityScore = AbilityScore::factory()->cleric()->create();
+
+        $this->assertSame(14, $abilityScore->strength);
+        $this->assertSame(10, $abilityScore->dexterity);
+        $this->assertSame(13, $abilityScore->constitution);
+        $this->assertSame(8, $abilityScore->intelligence);
+        $this->assertSame(16, $abilityScore->wisdom);
+        $this->assertSame(12, $abilityScore->charisma);
     }
 
     // =====================================
@@ -97,7 +98,14 @@ final class FactoryTest extends TestCase
 
     public function testAbilityScoreFactoryFighterState(): void
     {
-        $this->markTestSkipped(self::STATIC_CLOSURE_BUG_MESSAGE);
+        $abilityScore = AbilityScore::factory()->fighter()->create();
+
+        $this->assertSame(16, $abilityScore->strength);
+        $this->assertSame(14, $abilityScore->dexterity);
+        $this->assertSame(15, $abilityScore->constitution);
+        $this->assertSame(10, $abilityScore->intelligence);
+        $this->assertSame(12, $abilityScore->wisdom);
+        $this->assertSame(8, $abilityScore->charisma);
     }
 
     public function testAbilityScoreFactoryGeneratesUniqueIds(): void
@@ -131,17 +139,44 @@ final class FactoryTest extends TestCase
 
     public function testAbilityScoreFactoryRogueState(): void
     {
-        $this->markTestSkipped(self::STATIC_CLOSURE_BUG_MESSAGE);
+        $abilityScore = AbilityScore::factory()->rogue()->create();
+
+        $this->assertSame(10, $abilityScore->strength);
+        $this->assertSame(16, $abilityScore->dexterity);
+        $this->assertSame(13, $abilityScore->constitution);
+        $this->assertSame(12, $abilityScore->intelligence);
+        $this->assertSame(14, $abilityScore->wisdom);
+        $this->assertSame(8, $abilityScore->charisma);
     }
 
     public function testAbilityScoreFactoryStandardArrayState(): void
     {
-        $this->markTestSkipped(self::STATIC_CLOSURE_BUG_MESSAGE);
+        $abilityScore = AbilityScore::factory()->standardArray()->create();
+
+        // Standard array values: 15, 14, 13, 12, 10, 8 (shuffled)
+        $scores = [
+            $abilityScore->strength,
+            $abilityScore->dexterity,
+            $abilityScore->constitution,
+            $abilityScore->intelligence,
+            $abilityScore->wisdom,
+            $abilityScore->charisma,
+        ];
+        sort($scores);
+
+        $this->assertSame([8, 10, 12, 13, 14, 15], $scores);
     }
 
     public function testAbilityScoreFactoryWizardState(): void
     {
-        $this->markTestSkipped(self::STATIC_CLOSURE_BUG_MESSAGE);
+        $abilityScore = AbilityScore::factory()->wizard()->create();
+
+        $this->assertSame(8, $abilityScore->strength);
+        $this->assertSame(14, $abilityScore->dexterity);
+        $this->assertSame(13, $abilityScore->constitution);
+        $this->assertSame(16, $abilityScore->intelligence);
+        $this->assertSame(12, $abilityScore->wisdom);
+        $this->assertSame(10, $abilityScore->charisma);
     }
 
     // =====================================
@@ -162,7 +197,12 @@ final class FactoryTest extends TestCase
 
     public function testBackgroundFactoryCriminalState(): void
     {
-        $this->markTestSkipped(self::STATIC_CLOSURE_BUG_MESSAGE);
+        $background = Background::factory()->criminal()->create();
+
+        $this->assertSame('Criminal', $background->name);
+        $this->assertSame('criminal', $background->slug);
+        $this->assertSame(['sleight-of-hand', 'stealth'], $background->skill_proficiencies);
+        $this->assertSame('thieves-tools', $background->tool_proficiency);
     }
 
     public function testBackgroundFactoryGeneratesUniqueIds(): void
@@ -177,12 +217,22 @@ final class FactoryTest extends TestCase
 
     public function testBackgroundFactorySageState(): void
     {
-        $this->markTestSkipped(self::STATIC_CLOSURE_BUG_MESSAGE);
+        $background = Background::factory()->sage()->create();
+
+        $this->assertSame('Sage', $background->name);
+        $this->assertSame('sage', $background->slug);
+        $this->assertSame(['arcana', 'history'], $background->skill_proficiencies);
+        $this->assertSame('calligraphers-supplies', $background->tool_proficiency);
     }
 
     public function testBackgroundFactorySoldierState(): void
     {
-        $this->markTestSkipped(self::STATIC_CLOSURE_BUG_MESSAGE);
+        $background = Background::factory()->soldier()->create();
+
+        $this->assertSame('Soldier', $background->name);
+        $this->assertSame('soldier', $background->slug);
+        $this->assertSame(['athletics', 'intimidation'], $background->skill_proficiencies);
+        $this->assertSame('gaming-set', $background->tool_proficiency);
     }
 
     // =====================================
@@ -202,7 +252,14 @@ final class FactoryTest extends TestCase
 
     public function testCharacterClassFactoryFighterState(): void
     {
-        $this->markTestSkipped(self::STATIC_CLOSURE_BUG_MESSAGE);
+        $class = CharacterClass::factory()->fighter()->create();
+
+        $this->assertSame('Fighter', $class->name);
+        $this->assertSame('fighter', $class->slug);
+        $this->assertSame(10, $class->hit_die);
+        $this->assertSame(['strength', 'dexterity'], $class->primary_abilities);
+        $this->assertSame(['strength', 'constitution'], $class->saving_throw_proficiencies);
+        $this->assertNull($class->spellcasting_ability);
     }
 
     public function testCharacterClassFactoryGeneratesUniqueIds(): void
@@ -225,7 +282,14 @@ final class FactoryTest extends TestCase
 
     public function testCharacterClassFactoryWizardState(): void
     {
-        $this->markTestSkipped(self::STATIC_CLOSURE_BUG_MESSAGE);
+        $class = CharacterClass::factory()->wizard()->create();
+
+        $this->assertSame('Wizard', $class->name);
+        $this->assertSame('wizard', $class->slug);
+        $this->assertSame(6, $class->hit_die);
+        $this->assertSame(['intelligence'], $class->primary_abilities);
+        $this->assertSame(['intelligence', 'wisdom'], $class->saving_throw_proficiencies);
+        $this->assertSame('intelligence', $class->spellcasting_ability);
     }
 
     public function testCharacterFactoryCreatesValidArmorClass(): void
@@ -276,12 +340,24 @@ final class FactoryTest extends TestCase
 
     public function testCharacterFactoryDamagedState(): void
     {
-        $this->markTestSkipped(self::STATIC_CLOSURE_BUG_MESSAGE);
+        $character = Character::factory()
+            ->state(['max_hit_points' => 20])
+            ->damaged()
+            ->create();
+
+        $this->assertSame(20, $character->max_hit_points);
+        $this->assertSame(10, $character->current_hit_points);
     }
 
     public function testCharacterFactoryFullHealthState(): void
     {
-        $this->markTestSkipped(self::STATIC_CLOSURE_BUG_MESSAGE);
+        $character = Character::factory()
+            ->state(['max_hit_points' => 25])
+            ->fullHealth()
+            ->create();
+
+        $this->assertSame(25, $character->max_hit_points);
+        $this->assertSame(25, $character->current_hit_points);
     }
 
     public function testCharacterFactoryGeneratesUniqueIds(): void
@@ -317,17 +393,32 @@ final class FactoryTest extends TestCase
 
     public function testCharacterFactoryInspiredState(): void
     {
-        $this->markTestSkipped(self::STATIC_CLOSURE_BUG_MESSAGE);
+        $character = Character::factory()->inspired()->create();
+
+        $this->assertTrue($character->inspiration);
     }
 
     public function testCharacterFactoryLevelState(): void
     {
-        $this->markTestSkipped(self::STATIC_CLOSURE_BUG_MESSAGE);
+        $character = Character::factory()->level(5)->create();
+
+        $this->assertSame(5, $character->level);
     }
 
     public function testCharacterFactoryLevelStateProficiencyBonus(): void
     {
-        $this->markTestSkipped(self::STATIC_CLOSURE_BUG_MESSAGE);
+        // Level 1-4: +2, Level 5-8: +3, Level 9-12: +4, Level 13-16: +5, Level 17+: +6
+        $level1  = Character::factory()->level(1)->create();
+        $level5  = Character::factory()->level(5)->create();
+        $level9  = Character::factory()->level(9)->create();
+        $level13 = Character::factory()->level(13)->create();
+        $level17 = Character::factory()->level(17)->create();
+
+        $this->assertSame(2, $level1->proficiency_bonus);
+        $this->assertSame(3, $level5->proficiency_bonus);
+        $this->assertSame(4, $level9->proficiency_bonus);
+        $this->assertSame(5, $level13->proficiency_bonus);
+        $this->assertSame(6, $level17->proficiency_bonus);
     }
 
     public function testCharacterFactoryWithExistingRelationshipsViaState(): void
@@ -351,7 +442,11 @@ final class FactoryTest extends TestCase
 
     public function testCharacterFactoryWithSubclassState(): void
     {
-        $this->markTestSkipped(self::STATIC_CLOSURE_BUG_MESSAGE);
+        $character = Character::factory()->withSubclass()->create();
+
+        $this->assertNotNull($character->subclass_id);
+        $this->assertNotNull($character->subclass);
+        $this->assertGreaterThanOrEqual(3, $character->level);
     }
 
     // =====================================
@@ -416,12 +511,28 @@ final class FactoryTest extends TestCase
 
     public function testSpeciesFactoryDwarfState(): void
     {
-        $this->markTestSkipped(self::STATIC_CLOSURE_BUG_MESSAGE);
+        $species = Species::factory()->dwarf()->create();
+
+        $this->assertSame('Dwarf', $species->name);
+        $this->assertSame('dwarf', $species->slug);
+        $this->assertSame('Medium', $species->size);
+        $this->assertSame(30, $species->speed);
+        $this->assertSame(120, $species->darkvision);
+        $this->assertContains('Common', $species->languages);
+        $this->assertContains('Dwarvish', $species->languages);
     }
 
     public function testSpeciesFactoryElfState(): void
     {
-        $this->markTestSkipped(self::STATIC_CLOSURE_BUG_MESSAGE);
+        $species = Species::factory()->elf()->create();
+
+        $this->assertSame('Elf', $species->name);
+        $this->assertSame('elf', $species->slug);
+        $this->assertSame('Medium', $species->size);
+        $this->assertSame(60, $species->darkvision);
+        $this->assertTrue($species->has_lineage_choice);
+        $this->assertContains('Common', $species->languages);
+        $this->assertContains('Elvish', $species->languages);
     }
 
     public function testSpeciesFactoryGeneratesUniqueIds(): void
@@ -436,7 +547,15 @@ final class FactoryTest extends TestCase
 
     public function testSpeciesFactoryHumanState(): void
     {
-        $this->markTestSkipped(self::STATIC_CLOSURE_BUG_MESSAGE);
+        $species = Species::factory()->human()->create();
+
+        $this->assertSame('Human', $species->name);
+        $this->assertSame('human', $species->slug);
+        $this->assertSame('Medium', $species->size);
+        $this->assertSame(30, $species->speed);
+        $this->assertNull($species->darkvision);
+        $this->assertFalse($species->has_lineage_choice);
+        $this->assertContains('Common', $species->languages);
     }
 
     public function testSpellFactoryGeneratesUniqueIds(): void
