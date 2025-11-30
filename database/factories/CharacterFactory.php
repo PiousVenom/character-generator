@@ -9,7 +9,6 @@ use App\Models\Character;
 use App\Models\CharacterClass;
 use App\Models\Species;
 use App\Models\Subclass;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -36,7 +35,6 @@ final class CharacterFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'           => User::factory(),
             'name'              => $this->faker->name(),
             'class_id'          => CharacterClass::factory(),
             'subclass_id'       => null,
