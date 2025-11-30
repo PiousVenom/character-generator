@@ -50,19 +50,23 @@ final class CharacterClassFactory extends Factory
 
     public function fighter(): self
     {
-        return $this->state(static fn (array $attributes): array => [
-            'name'                       => 'Fighter',
-            'slug'                       => 'fighter',
-            'hit_die'                    => 10,
-            'primary_abilities'          => ['strength', 'dexterity'],
-            'saving_throw_proficiencies' => ['strength', 'constitution'],
-            'armor_proficiencies'        => ['light', 'medium', 'heavy', 'shields'],
-            'weapon_proficiencies'       => ['simple', 'martial'],
-            'skill_choices'              => ['count' => 2, 'options' => ['acrobatics', 'animal-handling', 'athletics', 'history', 'insight', 'intimidation', 'perception', 'survival']],
-            'starting_equipment'         => [],
-            'spellcasting_ability'       => null,
-            'subclass_level'             => 3,
-        ]);
+        return $this->state(function (array $attributes): array {
+            $_ = $this; // Prevent static closure - Laravel binds $this to state callbacks
+
+            return [
+                'name'                       => 'Fighter',
+                'slug'                       => 'fighter',
+                'hit_die'                    => 10,
+                'primary_abilities'          => ['strength', 'dexterity'],
+                'saving_throw_proficiencies' => ['strength', 'constitution'],
+                'armor_proficiencies'        => ['light', 'medium', 'heavy', 'shields'],
+                'weapon_proficiencies'       => ['simple', 'martial'],
+                'skill_choices'              => ['count' => 2, 'options' => ['acrobatics', 'animal-handling', 'athletics', 'history', 'insight', 'intimidation', 'perception', 'survival']],
+                'starting_equipment'         => [],
+                'spellcasting_ability'       => null,
+                'subclass_level'             => 3,
+            ];
+        });
     }
 
     public function spellcaster(): self
@@ -74,18 +78,22 @@ final class CharacterClassFactory extends Factory
 
     public function wizard(): self
     {
-        return $this->state(static fn (array $attributes): array => [
-            'name'                       => 'Wizard',
-            'slug'                       => 'wizard',
-            'hit_die'                    => 6,
-            'primary_abilities'          => ['intelligence'],
-            'saving_throw_proficiencies' => ['intelligence', 'wisdom'],
-            'armor_proficiencies'        => [],
-            'weapon_proficiencies'       => ['daggers', 'darts', 'slings', 'quarterstaffs', 'light-crossbows'],
-            'skill_choices'              => ['count' => 2, 'options' => ['arcana', 'history', 'insight', 'investigation', 'medicine', 'religion']],
-            'starting_equipment'         => [],
-            'spellcasting_ability'       => 'intelligence',
-            'subclass_level'             => 3,
-        ]);
+        return $this->state(function (array $attributes): array {
+            $_ = $this; // Prevent static closure - Laravel binds $this to state callbacks
+
+            return [
+                'name'                       => 'Wizard',
+                'slug'                       => 'wizard',
+                'hit_die'                    => 6,
+                'primary_abilities'          => ['intelligence'],
+                'saving_throw_proficiencies' => ['intelligence', 'wisdom'],
+                'armor_proficiencies'        => [],
+                'weapon_proficiencies'       => ['daggers', 'darts', 'slings', 'quarterstaffs', 'light-crossbows'],
+                'skill_choices'              => ['count' => 2, 'options' => ['arcana', 'history', 'insight', 'investigation', 'medicine', 'religion']],
+                'starting_equipment'         => [],
+                'spellcasting_ability'       => 'intelligence',
+                'subclass_level'             => 3,
+            ];
+        });
     }
 }

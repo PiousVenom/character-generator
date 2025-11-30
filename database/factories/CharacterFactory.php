@@ -20,7 +20,8 @@ final class CharacterFactory extends Factory
 
     public function damaged(): self
     {
-        return $this->state(static function (array $attributes): array {
+        return $this->state(function (array $attributes): array {
+            $_     = $this; // Prevent static closure - Laravel binds $this to state callbacks
             $maxHp = $attributes['max_hit_points'] ?? 10;
 
             return [
@@ -65,7 +66,8 @@ final class CharacterFactory extends Factory
 
     public function fullHealth(): self
     {
-        return $this->state(static function (array $attributes): array {
+        return $this->state(function (array $attributes): array {
+            $_     = $this; // Prevent static closure - Laravel binds $this to state callbacks
             $maxHp = $attributes['max_hit_points'] ?? 10;
 
             return [
@@ -76,9 +78,11 @@ final class CharacterFactory extends Factory
 
     public function inspired(): self
     {
-        return $this->state(static fn (array $attributes): array => [
-            'inspiration' => true,
-        ]);
+        return $this->state(function (array $attributes): array {
+            $_ = $this; // Prevent static closure - Laravel binds $this to state callbacks
+
+            return ['inspiration' => true];
+        });
     }
 
     public function level(int $level): self
@@ -91,17 +95,25 @@ final class CharacterFactory extends Factory
             default      => 6,
         };
 
-        return $this->state(static fn (array $attributes): array => [
-            'level'             => $level,
-            'proficiency_bonus' => $proficiencyBonus,
-        ]);
+        return $this->state(function (array $attributes) use ($level, $proficiencyBonus): array {
+            $_ = $this; // Prevent static closure - Laravel binds $this to state callbacks
+
+            return [
+                'level'             => $level,
+                'proficiency_bonus' => $proficiencyBonus,
+            ];
+        });
     }
 
     public function withSubclass(): self
     {
-        return $this->state(static fn (array $attributes): array => [
-            'subclass_id' => Subclass::factory(),
-            'level'       => max(3, $attributes['level'] ?? 1),
-        ]);
+        return $this->state(function (array $attributes): array {
+            $_ = $this; // Prevent static closure - Laravel binds $this to state callbacks
+
+            return [
+                'subclass_id' => Subclass::factory(),
+                'level'       => max(3, $attributes['level'] ?? 1),
+            ];
+        });
     }
 }

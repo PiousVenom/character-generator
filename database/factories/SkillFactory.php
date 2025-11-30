@@ -17,32 +17,44 @@ final class SkillFactory extends Factory
 
     public function acrobatics(): self
     {
-        return $this->state(static fn (array $attributes): array => [
-            'name'        => 'Acrobatics',
-            'slug'        => 'acrobatics',
-            'description' => 'Covers attempts to stay on your feet in tricky situations, stunts, and balance.',
-            'ability'     => 'dexterity',
-        ]);
+        return $this->state(function (array $attributes): array {
+            $_ = $this; // Prevent static closure - Laravel binds $this to state callbacks
+
+            return [
+                'name'        => 'Acrobatics',
+                'slug'        => 'acrobatics',
+                'description' => 'Covers attempts to stay on your feet in tricky situations, stunts, and balance.',
+                'ability'     => 'dexterity',
+            ];
+        });
     }
 
     public function arcana(): self
     {
-        return $this->state(static fn (array $attributes): array => [
-            'name'        => 'Arcana',
-            'slug'        => 'arcana',
-            'description' => 'Measures recall of lore about spells, magic items, planes, and magical creatures.',
-            'ability'     => 'intelligence',
-        ]);
+        return $this->state(function (array $attributes): array {
+            $_ = $this; // Prevent static closure - Laravel binds $this to state callbacks
+
+            return [
+                'name'        => 'Arcana',
+                'slug'        => 'arcana',
+                'description' => 'Measures recall of lore about spells, magic items, planes, and magical creatures.',
+                'ability'     => 'intelligence',
+            ];
+        });
     }
 
     public function athletics(): self
     {
-        return $this->state(static fn (array $attributes): array => [
-            'name'        => 'Athletics',
-            'slug'        => 'athletics',
-            'description' => 'Covers difficult physical situations: climbing, jumping, swimming, grappling.',
-            'ability'     => 'strength',
-        ]);
+        return $this->state(function (array $attributes): array {
+            $_ = $this; // Prevent static closure - Laravel binds $this to state callbacks
+
+            return [
+                'name'        => 'Athletics',
+                'slug'        => 'athletics',
+                'description' => 'Covers difficult physical situations: climbing, jumping, swimming, grappling.',
+                'ability'     => 'strength',
+            ];
+        });
     }
 
     /**
@@ -58,7 +70,7 @@ final class SkillFactory extends Factory
             ['name' => 'Perception', 'ability' => 'wisdom'],
         ];
 
-        $skill = $this->faker->randomElement($skills);
+        $skill = $this->faker->unique()->randomElement($skills);
 
         return [
             'name'        => $skill['name'],
@@ -70,21 +82,29 @@ final class SkillFactory extends Factory
 
     public function perception(): self
     {
-        return $this->state(static fn (array $attributes): array => [
-            'name'        => 'Perception',
-            'slug'        => 'perception',
-            'description' => 'Covers detecting presences, noticing details, and general awareness.',
-            'ability'     => 'wisdom',
-        ]);
+        return $this->state(function (array $attributes): array {
+            $_ = $this; // Prevent static closure - Laravel binds $this to state callbacks
+
+            return [
+                'name'        => 'Perception',
+                'slug'        => 'perception',
+                'description' => 'Covers detecting presences, noticing details, and general awareness.',
+                'ability'     => 'wisdom',
+            ];
+        });
     }
 
     public function stealth(): self
     {
-        return $this->state(static fn (array $attributes): array => [
-            'name'        => 'Stealth',
-            'slug'        => 'stealth',
-            'description' => 'Covers attempts to hide and move quietly.',
-            'ability'     => 'dexterity',
-        ]);
+        return $this->state(function (array $attributes): array {
+            $_ = $this; // Prevent static closure - Laravel binds $this to state callbacks
+
+            return [
+                'name'        => 'Stealth',
+                'slug'        => 'stealth',
+                'description' => 'Covers attempts to hide and move quietly.',
+                'ability'     => 'dexterity',
+            ];
+        });
     }
 }

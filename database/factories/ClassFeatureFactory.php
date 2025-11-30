@@ -18,9 +18,11 @@ final class ClassFeatureFactory extends Factory
 
     public function atLevel(int $level): self
     {
-        return $this->state(static fn (array $attributes): array => [
-            'level' => $level,
-        ]);
+        return $this->state(function (array $attributes) use ($level): array {
+            $_ = $this; // Prevent static closure - Laravel binds $this to state callbacks
+
+            return ['level' => $level];
+        });
     }
 
     /**
@@ -40,18 +42,26 @@ final class ClassFeatureFactory extends Factory
 
     public function forSubclass(Subclass $subclass): self
     {
-        return $this->state(static fn (array $attributes): array => [
-            'class_id'            => $subclass->class_id,
-            'subclass_id'         => $subclass->id,
-            'is_subclass_feature' => true,
-        ]);
+        return $this->state(function (array $attributes) use ($subclass): array {
+            $_ = $this; // Prevent static closure - Laravel binds $this to state callbacks
+
+            return [
+                'class_id'            => $subclass->class_id,
+                'subclass_id'         => $subclass->id,
+                'is_subclass_feature' => true,
+            ];
+        });
     }
 
     public function subclassFeature(): self
     {
-        return $this->state(static fn (array $attributes): array => [
-            'subclass_id'         => Subclass::factory(),
-            'is_subclass_feature' => true,
-        ]);
+        return $this->state(function (array $attributes): array {
+            $_ = $this; // Prevent static closure - Laravel binds $this to state callbacks
+
+            return [
+                'subclass_id'         => Subclass::factory(),
+                'is_subclass_feature' => true,
+            ];
+        });
     }
 }

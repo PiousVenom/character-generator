@@ -17,26 +17,34 @@ final class AbilityScoreFactory extends Factory
 
     public function allTens(): self
     {
-        return $this->state(static fn (array $attributes): array => [
-            'strength'     => 10,
-            'dexterity'    => 10,
-            'constitution' => 10,
-            'intelligence' => 10,
-            'wisdom'       => 10,
-            'charisma'     => 10,
-        ]);
+        return $this->state(function (array $attributes): array {
+            $_ = $this; // Prevent static closure - Laravel binds $this to state callbacks
+
+            return [
+                'strength'     => 10,
+                'dexterity'    => 10,
+                'constitution' => 10,
+                'intelligence' => 10,
+                'wisdom'       => 10,
+                'charisma'     => 10,
+            ];
+        });
     }
 
     public function cleric(): self
     {
-        return $this->state(static fn (array $attributes): array => [
-            'strength'     => 14,
-            'dexterity'    => 10,
-            'constitution' => 13,
-            'intelligence' => 8,
-            'wisdom'       => 16,
-            'charisma'     => 12,
-        ]);
+        return $this->state(function (array $attributes): array {
+            $_ = $this; // Prevent static closure - Laravel binds $this to state callbacks
+
+            return [
+                'strength'     => 14,
+                'dexterity'    => 10,
+                'constitution' => 13,
+                'intelligence' => 8,
+                'wisdom'       => 16,
+                'charisma'     => 12,
+            ];
+        });
     }
 
     /**
@@ -57,14 +65,18 @@ final class AbilityScoreFactory extends Factory
 
     public function fighter(): self
     {
-        return $this->state(static fn (array $attributes): array => [
-            'strength'     => 16,
-            'dexterity'    => 14,
-            'constitution' => 15,
-            'intelligence' => 10,
-            'wisdom'       => 12,
-            'charisma'     => 8,
-        ]);
+        return $this->state(function (array $attributes): array {
+            $_ = $this; // Prevent static closure - Laravel binds $this to state callbacks
+
+            return [
+                'strength'     => 16,
+                'dexterity'    => 14,
+                'constitution' => 15,
+                'intelligence' => 10,
+                'wisdom'       => 12,
+                'charisma'     => 8,
+            ];
+        });
     }
 
     public function pointBuy(): self
@@ -81,19 +93,24 @@ final class AbilityScoreFactory extends Factory
 
     public function rogue(): self
     {
-        return $this->state(static fn (array $attributes): array => [
-            'strength'     => 10,
-            'dexterity'    => 16,
-            'constitution' => 13,
-            'intelligence' => 12,
-            'wisdom'       => 14,
-            'charisma'     => 8,
-        ]);
+        return $this->state(function (array $attributes): array {
+            $_ = $this; // Prevent static closure - Laravel binds $this to state callbacks
+
+            return [
+                'strength'     => 10,
+                'dexterity'    => 16,
+                'constitution' => 13,
+                'intelligence' => 12,
+                'wisdom'       => 14,
+                'charisma'     => 8,
+            ];
+        });
     }
 
     public function standardArray(): self
     {
-        return $this->state(static function (array $attributes): array {
+        return $this->state(function (array $attributes): array {
+            $_      = $this; // Prevent static closure - Laravel binds $this to state callbacks
             $scores = [15, 14, 13, 12, 10, 8];
             shuffle($scores);
 
@@ -110,13 +127,17 @@ final class AbilityScoreFactory extends Factory
 
     public function wizard(): self
     {
-        return $this->state(static fn (array $attributes): array => [
-            'strength'     => 8,
-            'dexterity'    => 14,
-            'constitution' => 13,
-            'intelligence' => 16,
-            'wisdom'       => 12,
-            'charisma'     => 10,
-        ]);
+        return $this->state(function (array $attributes): array {
+            $_ = $this; // Prevent static closure - Laravel binds $this to state callbacks
+
+            return [
+                'strength'     => 8,
+                'dexterity'    => 14,
+                'constitution' => 13,
+                'intelligence' => 16,
+                'wisdom'       => 12,
+                'charisma'     => 10,
+            ];
+        });
     }
 }
