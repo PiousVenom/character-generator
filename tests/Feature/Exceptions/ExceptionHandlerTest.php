@@ -141,6 +141,27 @@ final class ExceptionHandlerTest extends TestCase
         $this->assertTrue(Str::isUuid($log->id));
     }
 
+    public function testExceptionsAreLoggedToErrorLogsTable(): void
+    {
+        $this->assertDatabaseCount('error_logs', 0);
+
+        $this->withoutExceptionHandling([RuntimeException::class]);
+
+        try {
+            $this->getJson('/api/v1/test/exception');
+        } catch (RuntimeException) {
+            // Expected
+        }
+
+        // Re-enable exception handling and make a real request
+        $this->withExceptionHandling();
+        $this->getJson('/api/v1/test/exception');
+
+        $this->assertDatabaseHas('error_logs', [
+            'level' => 'error',
+        ]);
+    }
+
     public function testExceptionTraceExcludedWhenDebugDisabled(): void
     {
         config(['app.debug' => false]);
@@ -164,27 +185,6 @@ final class ExceptionHandlerTest extends TestCase
         $this->assertNotNull($log);
         $this->assertNotNull($log->exception_trace);
         $this->assertStringContainsString('ExceptionHandlerTest', $log->exception_trace);
-    }
-
-    public function testExceptionsAreLoggedToErrorLogsTable(): void
-    {
-        $this->assertDatabaseCount('error_logs', 0);
-
-        $this->withoutExceptionHandling([RuntimeException::class]);
-
-        try {
-            $this->getJson('/api/v1/test/exception');
-        } catch (RuntimeException) {
-            // Expected
-        }
-
-        // Re-enable exception handling and make a real request
-        $this->withExceptionHandling();
-        $this->getJson('/api/v1/test/exception');
-
-        $this->assertDatabaseHas('error_logs', [
-            'level' => 'error',
-        ]);
     }
 
     public function testMultipleExceptionsCreateMultipleLogs(): void
