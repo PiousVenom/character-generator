@@ -39,3 +39,5 @@ CLAUDE.md
 orchestrator.ps1
 
 *.sh
+
+.php-cs-fixer.cache
