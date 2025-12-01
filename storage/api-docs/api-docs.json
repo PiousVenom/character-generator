@@ -1,0 +1,1683 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "D&D 5E Character Creator API",
+        "description": "RESTful API for creating and managing D&D 5th Edition (2024 ruleset) characters. Provides endpoints for character CRUD operations and reference data for classes, species, and backgrounds.",
+        "contact": {
+            "name": "API Support",
+            "email": "support@example.com"
+        },
+        "license": {
+            "name": "MIT"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/backgrounds": {
+            "get": {
+                "tags": [
+                    "Backgrounds"
+                ],
+                "summary": "List all backgrounds",
+                "description": "Returns a paginated list of D&D character backgrounds.",
+                "operationId": "c75470a6a138e126fcaadb9f75b02bb1",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    },
+                    {
+                        "name": "perPage",
+                        "in": "query",
+                        "description": "Items per page (max 100)",
+                        "schema": {
+                            "type": "integer",
+                            "default": 15,
+                            "maximum": 100
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Backgrounds retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Background"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Backgrounds retrieved successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/backgrounds/{id}": {
+            "get": {
+                "tags": [
+                    "Backgrounds"
+                ],
+                "summary": "Get a background",
+                "description": "Returns detailed information about a D&D background.",
+                "operationId": "d970d72110eaf2c42fc127e0a4e6b2bf",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Background UUID",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Background retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Background"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Background retrieved successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Background not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/characters/{id}": {
+            "get": {
+                "tags": [
+                    "Characters"
+                ],
+                "summary": "Get a character",
+                "description": "Returns a single character with optional relationship includes.",
+                "operationId": "cdbc78e4acce7e1799d4211bec16eab4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Character UUID",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "include",
+                        "in": "query",
+                        "description": "Comma-separated relationships to include",
+                        "schema": {
+                            "type": "string",
+                            "example": "class,species,background,abilityScores"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Character retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Character"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Character retrieved successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Character not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Characters"
+                ],
+                "summary": "Delete a character",
+                "description": "Soft deletes a character. The character is not permanently removed and can potentially be restored.",
+                "operationId": "e7edf3b5ff708bd94cedffaa7f2928d1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Character UUID",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Character deleted successfully"
+                    },
+                    "404": {
+                        "description": "Character not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Characters"
+                ],
+                "summary": "Update a character",
+                "description": "Partially updates a character. Only include fields you want to change.",
+                "operationId": "a6b0f235be26c5513e1f283c58836290",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Character UUID",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateCharacterRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Character updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Character"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Character updated successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Character not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/characters": {
+            "get": {
+                "tags": [
+                    "Characters"
+                ],
+                "summary": "List all characters",
+                "description": "Returns a paginated list of characters with optional filtering, sorting, and relationship includes.",
+                "operationId": "83a139d09b76833dadff76563e015596",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    },
+                    {
+                        "name": "perPage",
+                        "in": "query",
+                        "description": "Items per page (max 100)",
+                        "schema": {
+                            "type": "integer",
+                            "default": 15,
+                            "maximum": 100
+                        }
+                    },
+                    {
+                        "name": "filter[classId]",
+                        "in": "query",
+                        "description": "Filter by class UUID",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "filter[speciesId]",
+                        "in": "query",
+                        "description": "Filter by species UUID",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "filter[minLevel]",
+                        "in": "query",
+                        "description": "Minimum character level",
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 1
+                        }
+                    },
+                    {
+                        "name": "filter[maxLevel]",
+                        "in": "query",
+                        "description": "Maximum character level",
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 20
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sort field (prefix with - for descending)",
+                        "schema": {
+                            "type": "string",
+                            "default": "-createdAt",
+                            "enum": [
+                                "name",
+                                "-name",
+                                "level",
+                                "-level",
+                                "createdAt",
+                                "-createdAt",
+                                "updatedAt",
+                                "-updatedAt"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "include",
+                        "in": "query",
+                        "description": "Comma-separated relationships to include",
+                        "schema": {
+                            "type": "string",
+                            "example": "class,species,abilityScores"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Characters retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Character"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Characters retrieved successfully"
+                                        },
+                                        "meta": {
+                                            "properties": {
+                                                "timestamp": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                },
+                                                "version": {
+                                                    "type": "string",
+                                                    "example": "v1"
+                                                },
+                                                "pagination": {
+                                                    "$ref": "#/components/schemas/PaginationMeta"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Characters"
+                ],
+                "summary": "Create a new character",
+                "description": "Creates a new D&D character with the provided details. Ability scores must be between 3-18 for character creation.",
+                "operationId": "c8b7c1bfe43f3028b46fb437987f273a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateCharacterRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Character created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Character"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Character created successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/classes": {
+            "get": {
+                "tags": [
+                    "Classes"
+                ],
+                "summary": "List all classes",
+                "description": "Returns a paginated list of D&D character classes.",
+                "operationId": "fdaa3ee819d965230e7e81af690b7efd",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    },
+                    {
+                        "name": "perPage",
+                        "in": "query",
+                        "description": "Items per page (max 100)",
+                        "schema": {
+                            "type": "integer",
+                            "default": 15,
+                            "maximum": 100
+                        }
+                    },
+                    {
+                        "name": "filter.spellcaster",
+                        "in": "query",
+                        "description": "Filter to only spellcasting classes",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "true"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Classes retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Class"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Classes retrieved successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/classes/{id}": {
+            "get": {
+                "tags": [
+                    "Classes"
+                ],
+                "summary": "Get a class",
+                "description": "Returns detailed information about a D&D class including subclasses and features.",
+                "operationId": "ce167415b4a87811fb6e47c908e55c84",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Class UUID",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "include",
+                        "in": "query",
+                        "description": "Include features",
+                        "schema": {
+                            "type": "string",
+                            "example": "features"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Class retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Class"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Class retrieved successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Class not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/health": {
+            "get": {
+                "tags": [
+                    "Health"
+                ],
+                "summary": "Health check",
+                "description": "Returns the API health status.",
+                "operationId": "b2d4c1cde9879ccb5d3aadc8a3ff0794",
+                "responses": {
+                    "200": {
+                        "description": "API is healthy",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "ok"
+                                        },
+                                        "timestamp": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "version": {
+                                            "type": "string",
+                                            "example": "v1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "servers": [
+                    {
+                        "url": "/api/v1",
+                        "description": "API v1 Server"
+                    }
+                ]
+            }
+        },
+        "/species": {
+            "get": {
+                "tags": [
+                    "Species"
+                ],
+                "summary": "List all species",
+                "description": "Returns a paginated list of D&D character species.",
+                "operationId": "95f7879f7a35e76efee25b7121fcbeb4",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    },
+                    {
+                        "name": "perPage",
+                        "in": "query",
+                        "description": "Items per page (max 100)",
+                        "schema": {
+                            "type": "integer",
+                            "default": 15,
+                            "maximum": 100
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Species retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Species"
+                                            }
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Species retrieved successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/species/{id}": {
+            "get": {
+                "tags": [
+                    "Species"
+                ],
+                "summary": "Get a species",
+                "description": "Returns detailed information about a D&D species including traits.",
+                "operationId": "9cdcacd76fb3a8baaf39522430aeaef2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Species UUID",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Species retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "$ref": "#/components/schemas/Species"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Species retrieved successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Species not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Background": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/PaginationMeta"
+                    },
+                    {
+                        "properties": {
+                            "id": {
+                                "description": "Read-only controller for background reference data.",
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "Acolyte"
+                            },
+                            "slug": {
+                                "type": "string",
+                                "example": "acolyte"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "skillProficiencies": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "toolProficiency": {
+                                "type": "string",
+                                "nullable": true
+                            },
+                            "toolProficiencyChoices": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "nullable": true
+                            },
+                            "startingEquipment": {
+                                "type": "object"
+                            },
+                            "startingGold": {
+                                "type": "integer",
+                                "example": 15
+                            },
+                            "originFeat": {
+                                "oneOf": [
+                                    {
+                                        "$ref": "#/components/schemas/Feat"
+                                    }
+                                ],
+                                "nullable": true
+                            },
+                            "featureName": {
+                                "type": "string",
+                                "example": "Shelter of the Faithful"
+                            },
+                            "featureDescription": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "Feat": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/PaginationMeta"
+                    },
+                    {
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "Alert"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "prerequisite": {
+                                "type": "string",
+                                "nullable": true
+                            },
+                            "category": {
+                                "type": "string",
+                                "example": "General"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "Character": {
+                "required": [
+                    "id",
+                    "name",
+                    "level"
+                ],
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/PaginationMeta"
+                    },
+                    {
+                        "properties": {
+                            "id": {
+                                "description": "Handles Character CRUD operations.\n\nAll business logic delegated to CharacterService.",
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "Gandalf the Grey"
+                            },
+                            "level": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "experiencePoints": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "maxHitPoints": {
+                                "type": "integer",
+                                "example": 10
+                            },
+                            "currentHitPoints": {
+                                "type": "integer",
+                                "example": 10
+                            },
+                            "temporaryHitPoints": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "armorClass": {
+                                "type": "integer",
+                                "example": 10
+                            },
+                            "initiativeBonus": {
+                                "type": "integer",
+                                "example": 2
+                            },
+                            "speed": {
+                                "type": "integer",
+                                "example": 30
+                            },
+                            "proficiencyBonus": {
+                                "type": "integer",
+                                "example": 2
+                            },
+                            "inspiration": {
+                                "type": "boolean",
+                                "example": false
+                            },
+                            "alignment": {
+                                "type": "string",
+                                "enum": [
+                                    "lawful_good",
+                                    "neutral_good",
+                                    "chaotic_good",
+                                    "lawful_neutral",
+                                    "true_neutral",
+                                    "chaotic_neutral",
+                                    "lawful_evil",
+                                    "neutral_evil",
+                                    "chaotic_evil"
+                                ],
+                                "nullable": true
+                            },
+                            "personalityTraits": {
+                                "type": "string",
+                                "nullable": true
+                            },
+                            "ideals": {
+                                "type": "string",
+                                "nullable": true
+                            },
+                            "bonds": {
+                                "type": "string",
+                                "nullable": true
+                            },
+                            "flaws": {
+                                "type": "string",
+                                "nullable": true
+                            },
+                            "backstory": {
+                                "type": "string",
+                                "nullable": true
+                            },
+                            "notes": {
+                                "type": "string",
+                                "nullable": true
+                            },
+                            "class": {
+                                "oneOf": [
+                                    {
+                                        "$ref": "#/components/schemas/Class"
+                                    }
+                                ],
+                                "nullable": true
+                            },
+                            "species": {
+                                "oneOf": [
+                                    {
+                                        "$ref": "#/components/schemas/Species"
+                                    }
+                                ],
+                                "nullable": true
+                            },
+                            "background": {
+                                "oneOf": [
+                                    {
+                                        "$ref": "#/components/schemas/Background"
+                                    }
+                                ],
+                                "nullable": true
+                            },
+                            "abilityScores": {
+                                "oneOf": [
+                                    {
+                                        "$ref": "#/components/schemas/AbilityScores"
+                                    }
+                                ],
+                                "nullable": true
+                            },
+                            "createdAt": {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            "updatedAt": {
+                                "type": "string",
+                                "format": "date-time"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "AbilityScores": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/PaginationMeta"
+                    },
+                    {
+                        "properties": {
+                            "strength": {
+                                "type": "integer",
+                                "maximum": 30,
+                                "minimum": 1,
+                                "example": 10
+                            },
+                            "strengthModifier": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "dexterity": {
+                                "type": "integer",
+                                "maximum": 30,
+                                "minimum": 1,
+                                "example": 14
+                            },
+                            "dexterityModifier": {
+                                "type": "integer",
+                                "example": 2
+                            },
+                            "constitution": {
+                                "type": "integer",
+                                "maximum": 30,
+                                "minimum": 1,
+                                "example": 12
+                            },
+                            "constitutionModifier": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "intelligence": {
+                                "type": "integer",
+                                "maximum": 30,
+                                "minimum": 1,
+                                "example": 16
+                            },
+                            "intelligenceModifier": {
+                                "type": "integer",
+                                "example": 3
+                            },
+                            "wisdom": {
+                                "type": "integer",
+                                "maximum": 30,
+                                "minimum": 1,
+                                "example": 13
+                            },
+                            "wisdomModifier": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "charisma": {
+                                "type": "integer",
+                                "maximum": 30,
+                                "minimum": 1,
+                                "example": 8
+                            },
+                            "charismaModifier": {
+                                "type": "integer",
+                                "example": -1
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "CreateCharacterRequest": {
+                "required": [
+                    "name",
+                    "classId",
+                    "speciesId",
+                    "backgroundId",
+                    "abilityScores"
+                ],
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/PaginationMeta"
+                    },
+                    {
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "maxLength": 255,
+                                "example": "Thorin Ironforge"
+                            },
+                            "classId": {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            "speciesId": {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            "backgroundId": {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            "abilityScores": {
+                                "required": [
+                                    "strength",
+                                    "dexterity",
+                                    "constitution",
+                                    "intelligence",
+                                    "wisdom",
+                                    "charisma"
+                                ],
+                                "properties": {
+                                    "strength": {
+                                        "type": "integer",
+                                        "maximum": 18,
+                                        "minimum": 3,
+                                        "example": 16
+                                    },
+                                    "dexterity": {
+                                        "type": "integer",
+                                        "maximum": 18,
+                                        "minimum": 3,
+                                        "example": 12
+                                    },
+                                    "constitution": {
+                                        "type": "integer",
+                                        "maximum": 18,
+                                        "minimum": 3,
+                                        "example": 14
+                                    },
+                                    "intelligence": {
+                                        "type": "integer",
+                                        "maximum": 18,
+                                        "minimum": 3,
+                                        "example": 10
+                                    },
+                                    "wisdom": {
+                                        "type": "integer",
+                                        "maximum": 18,
+                                        "minimum": 3,
+                                        "example": 13
+                                    },
+                                    "charisma": {
+                                        "type": "integer",
+                                        "maximum": 18,
+                                        "minimum": 3,
+                                        "example": 8
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "alignment": {
+                                "type": "string",
+                                "enum": [
+                                    "lawful_good",
+                                    "neutral_good",
+                                    "chaotic_good",
+                                    "lawful_neutral",
+                                    "true_neutral",
+                                    "chaotic_neutral",
+                                    "lawful_evil",
+                                    "neutral_evil",
+                                    "chaotic_evil"
+                                ],
+                                "nullable": true
+                            },
+                            "personalityTraits": {
+                                "type": "string",
+                                "maxLength": 1000,
+                                "nullable": true
+                            },
+                            "ideals": {
+                                "type": "string",
+                                "maxLength": 1000,
+                                "nullable": true
+                            },
+                            "bonds": {
+                                "type": "string",
+                                "maxLength": 1000,
+                                "nullable": true
+                            },
+                            "flaws": {
+                                "type": "string",
+                                "maxLength": 1000,
+                                "nullable": true
+                            },
+                            "backstory": {
+                                "type": "string",
+                                "maxLength": 10000,
+                                "nullable": true
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "UpdateCharacterRequest": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/PaginationMeta"
+                    },
+                    {
+                        "properties": {
+                            "name": {
+                                "type": "string",
+                                "maxLength": 255
+                            },
+                            "abilityScores": {
+                                "properties": {
+                                    "strength": {
+                                        "type": "integer",
+                                        "maximum": 18,
+                                        "minimum": 3
+                                    },
+                                    "dexterity": {
+                                        "type": "integer",
+                                        "maximum": 18,
+                                        "minimum": 3
+                                    },
+                                    "constitution": {
+                                        "type": "integer",
+                                        "maximum": 18,
+                                        "minimum": 3
+                                    },
+                                    "intelligence": {
+                                        "type": "integer",
+                                        "maximum": 18,
+                                        "minimum": 3
+                                    },
+                                    "wisdom": {
+                                        "type": "integer",
+                                        "maximum": 18,
+                                        "minimum": 3
+                                    },
+                                    "charisma": {
+                                        "type": "integer",
+                                        "maximum": 18,
+                                        "minimum": 3
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "alignment": {
+                                "type": "string",
+                                "enum": [
+                                    "lawful_good",
+                                    "neutral_good",
+                                    "chaotic_good",
+                                    "lawful_neutral",
+                                    "true_neutral",
+                                    "chaotic_neutral",
+                                    "lawful_evil",
+                                    "neutral_evil",
+                                    "chaotic_evil"
+                                ],
+                                "nullable": true
+                            },
+                            "personalityTraits": {
+                                "type": "string",
+                                "maxLength": 1000,
+                                "nullable": true
+                            },
+                            "ideals": {
+                                "type": "string",
+                                "maxLength": 1000,
+                                "nullable": true
+                            },
+                            "bonds": {
+                                "type": "string",
+                                "maxLength": 1000,
+                                "nullable": true
+                            },
+                            "flaws": {
+                                "type": "string",
+                                "maxLength": 1000,
+                                "nullable": true
+                            },
+                            "backstory": {
+                                "type": "string",
+                                "maxLength": 10000,
+                                "nullable": true
+                            },
+                            "notes": {
+                                "type": "string",
+                                "maxLength": 10000,
+                                "nullable": true
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "Class": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/PaginationMeta"
+                    },
+                    {
+                        "properties": {
+                            "id": {
+                                "description": "Read-only controller for class reference data.",
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "Fighter"
+                            },
+                            "slug": {
+                                "type": "string",
+                                "example": "fighter"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "hitDie": {
+                                "type": "integer",
+                                "example": 10
+                            },
+                            "primaryAbilities": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "savingThrowProficiencies": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "armorProficiencies": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "weaponProficiencies": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "toolProficiencies": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                },
+                                "nullable": true
+                            },
+                            "skillChoices": {
+                                "type": "object"
+                            },
+                            "startingEquipment": {
+                                "type": "object"
+                            },
+                            "spellcastingAbility": {
+                                "type": "string",
+                                "nullable": true
+                            },
+                            "subclassLevel": {
+                                "type": "integer",
+                                "example": 3
+                            },
+                            "subclasses": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Subclass"
+                                }
+                            },
+                            "features": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/ClassFeature"
+                                }
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "Subclass": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/PaginationMeta"
+                    },
+                    {
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "Champion"
+                            },
+                            "slug": {
+                                "type": "string",
+                                "example": "champion"
+                            },
+                            "description": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "ClassFeature": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/PaginationMeta"
+                    },
+                    {
+                        "properties": {
+                            "id": {
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "Second Wind"
+                            },
+                            "level": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "description": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "SuccessResponse": {
+                "required": [
+                    "success",
+                    "data",
+                    "message",
+                    "meta"
+                ],
+                "properties": {
+                    "success": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "data": {
+                        "type": "object"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Operation successful"
+                    },
+                    "meta": {
+                        "properties": {
+                            "timestamp": {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            "version": {
+                                "type": "string",
+                                "example": "v1"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "ErrorResponse": {
+                "required": [
+                    "success",
+                    "error",
+                    "meta"
+                ],
+                "properties": {
+                    "success": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "error": {
+                        "required": [
+                            "code",
+                            "message"
+                        ],
+                        "properties": {
+                            "code": {
+                                "type": "string",
+                                "example": "VALIDATION_ERROR"
+                            },
+                            "message": {
+                                "type": "string",
+                                "example": "The given data was invalid."
+                            },
+                            "details": {
+                                "type": "object"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "meta": {
+                        "properties": {
+                            "timestamp": {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            "correlationId": {
+                                "type": "string",
+                                "format": "uuid"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "PaginationMeta": {
+                "properties": {
+                    "currentPage": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "perPage": {
+                        "type": "integer",
+                        "example": 15
+                    },
+                    "total": {
+                        "type": "integer",
+                        "example": 42
+                    },
+                    "lastPage": {
+                        "type": "integer",
+                        "example": 3
+                    }
+                },
+                "type": "object"
+            },
+            "Species": {
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/PaginationMeta"
+                    },
+                    {
+                        "properties": {
+                            "id": {
+                                "description": "Read-only controller for species reference data.",
+                                "type": "string",
+                                "format": "uuid"
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "Human"
+                            },
+                            "slug": {
+                                "type": "string",
+                                "example": "human"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "size": {
+                                "type": "string",
+                                "example": "Medium"
+                            },
+                            "speed": {
+                                "type": "integer",
+                                "example": 30
+                            },
+                            "creatureType": {
+                                "type": "string",
+                                "example": "Humanoid"
+                            },
+                            "darkvision": {
+                                "type": "integer",
+                                "example": 60,
+                                "nullable": true
+                            },
+                            "traits": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object"
+                                }
+                            },
+                            "languages": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "abilityScoreOptions": {
+                                "type": "object"
+                            },
+                            "hasLineageChoice": {
+                                "type": "boolean"
+                            },
+                            "lineages": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object"
+                                },
+                                "nullable": true
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Health",
+            "description": "API health check endpoints"
+        },
+        {
+            "name": "Characters",
+            "description": "Character CRUD operations"
+        },
+        {
+            "name": "Classes",
+            "description": "D&D class reference data (read-only)"
+        },
+        {
+            "name": "Species",
+            "description": "D&D species reference data (read-only)"
+        },
+        {
+            "name": "Backgrounds",
+            "description": "D&D background reference data (read-only)"
+        }
+    ]
+}

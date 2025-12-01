@@ -38,7 +38,7 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-interaction
 
       - name: Check code style (PHP CS Fixer)
-        run: ./vendor/bin/php-cs-fixer fix --dry-run --diff
+        run: ./vendor/bin/php-cs-fixer fix --dry-run
 
       - name: Run static analysis (Larastan)
         run: ./vendor/bin/phpstan analyse --memory-limit=2G --no-progress
