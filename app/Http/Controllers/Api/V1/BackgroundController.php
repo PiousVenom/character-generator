@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Resources\BackgroundResource;
 use App\Models\Background;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -30,7 +31,7 @@ final class BackgroundController extends Controller
             ->paginate($perPage);
 
         return $this->successResponse(
-            data: $backgrounds->items(),
+            data: BackgroundResource::collection($backgrounds->items()),
             message: 'Backgrounds retrieved successfully',
             additionalMeta: [
                 'pagination' => [
@@ -51,7 +52,7 @@ final class BackgroundController extends Controller
     public function show(Background $background): JsonResponse
     {
         return $this->successResponse(
-            data: $background,
+            data: new BackgroundResource($background),
             message: 'Background retrieved successfully',
         );
     }

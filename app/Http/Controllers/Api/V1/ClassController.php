@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Resources\ClassResource;
 use App\Models\CharacterClass;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -39,7 +40,7 @@ final class ClassController extends Controller
         $classes = $query->orderBy('name')->paginate($perPage);
 
         return $this->successResponse(
-            data: $classes->items(),
+            data: ClassResource::collection($classes->items()),
             message: 'Classes retrieved successfully',
             additionalMeta: [
                 'pagination' => [
@@ -74,7 +75,7 @@ final class ClassController extends Controller
         $class->load($includes);
 
         return $this->successResponse(
-            data: $class,
+            data: new ClassResource($class),
             message: 'Class retrieved successfully',
         );
     }

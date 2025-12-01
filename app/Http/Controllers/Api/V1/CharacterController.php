@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Requests\StoreCharacterRequest;
 use App\Http\Requests\UpdateCharacterRequest;
+use App\Http\Resources\CharacterResource;
 use App\Models\Character;
 use App\Services\CharacterService;
 use Illuminate\Http\JsonResponse;
@@ -63,7 +64,7 @@ final class CharacterController extends Controller
         );
 
         return $this->successResponse(
-            data: $characters->items(),
+            data: CharacterResource::collection($characters->items()),
             message: 'Characters retrieved successfully',
             additionalMeta: [
                 'pagination' => [
@@ -89,7 +90,7 @@ final class CharacterController extends Controller
         $character->load($includes);
 
         return $this->successResponse(
-            data: $character,
+            data: new CharacterResource($character),
             message: 'Character retrieved successfully',
         );
     }
@@ -107,7 +108,7 @@ final class CharacterController extends Controller
         $character = $this->characterService->create($validated);
 
         return $this->createdResponse(
-            data: $character,
+            data: new CharacterResource($character),
             message: 'Character created successfully',
         );
     }
@@ -125,7 +126,7 @@ final class CharacterController extends Controller
         $character = $this->characterService->update($character, $validated);
 
         return $this->successResponse(
-            data: $character,
+            data: new CharacterResource($character),
             message: 'Character updated successfully',
         );
     }

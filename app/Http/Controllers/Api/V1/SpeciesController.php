@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Resources\SpeciesResource;
 use App\Models\Species;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -30,7 +31,7 @@ final class SpeciesController extends Controller
             ->paginate($perPage);
 
         return $this->successResponse(
-            data: $species->items(),
+            data: SpeciesResource::collection($species->items()),
             message: 'Species retrieved successfully',
             additionalMeta: [
                 'pagination' => [
@@ -51,7 +52,7 @@ final class SpeciesController extends Controller
     public function show(Species $species): JsonResponse
     {
         return $this->successResponse(
-            data: $species,
+            data: new SpeciesResource($species),
             message: 'Species retrieved successfully',
         );
     }
