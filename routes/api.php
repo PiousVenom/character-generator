@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Api\V1\CharacterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,12 +36,8 @@ Route::prefix('v1')->group(static function (): void {
     |--------------------------------------------------------------------------
     | Character CRUD
     |--------------------------------------------------------------------------
-    |
-    | Full resource routes for character management.
-    | Routes will be enabled when CharacterController is implemented.
-    |
     */
-    // Route::apiResource('characters', CharacterController::class);
+    Route::apiResource('characters', CharacterController::class);
 
     /*
     |--------------------------------------------------------------------------
