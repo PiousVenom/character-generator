@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Api\V1\BackgroundController;
 use App\Http\Controllers\Api\V1\CharacterController;
+use App\Http\Controllers\Api\V1\ClassController;
+use App\Http\Controllers\Api\V1\SpeciesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,14 +46,12 @@ Route::prefix('v1')->group(static function (): void {
     |--------------------------------------------------------------------------
     | Reference Data (Read-Only)
     |--------------------------------------------------------------------------
-    |
-    | Reference data endpoints for character creation options.
-    | Routes will be enabled when controllers are implemented.
-    |
     */
-    // Route::apiResource('classes', ClassController::class)->only(['index', 'show']);
-    // Route::apiResource('species', SpeciesController::class)->only(['index', 'show']);
-    // Route::apiResource('backgrounds', BackgroundController::class)->only(['index', 'show']);
+    Route::apiResource('classes', ClassController::class)->only(['index', 'show']);
+    Route::apiResource('species', SpeciesController::class)->only(['index', 'show']);
+    Route::apiResource('backgrounds', BackgroundController::class)->only(['index', 'show']);
+
+    // Additional reference data (to be implemented)
     // Route::apiResource('equipment', EquipmentController::class)->only(['index', 'show']);
     // Route::apiResource('spells', SpellController::class)->only(['index', 'show']);
     // Route::apiResource('feats', FeatController::class)->only(['index', 'show']);
