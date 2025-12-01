@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Requests\StoreCharacterRequest;
+use App\Http\Requests\UpdateCharacterRequest;
 use App\Models\Character;
 use App\Services\CharacterService;
 use Illuminate\Http\JsonResponse;
@@ -97,12 +99,10 @@ final class CharacterController extends Controller
      *
      * POST /api/v1/characters
      */
-    public function store(Request $request): JsonResponse
+    public function store(StoreCharacterRequest $request): JsonResponse
     {
-        // Validation will be handled by Form Request in DEV-02-form-requests
-        // For now, accept validated data directly
         /** @var array<string, mixed> $validated */
-        $validated = $request->all();
+        $validated = $request->validated();
 
         $character = $this->characterService->create($validated);
 
@@ -117,11 +117,10 @@ final class CharacterController extends Controller
      *
      * PUT/PATCH /api/v1/characters/{uuid}
      */
-    public function update(Request $request, Character $character): JsonResponse
+    public function update(UpdateCharacterRequest $request, Character $character): JsonResponse
     {
-        // Validation will be handled by Form Request in DEV-02-form-requests
         /** @var array<string, mixed> $validated */
-        $validated = $request->all();
+        $validated = $request->validated();
 
         $character = $this->characterService->update($character, $validated);
 
